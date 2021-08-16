@@ -1,0 +1,5 @@
+"Metamod Plugin"
+{
+	"alias"		"playerlimitremover"
+	"file"		"addons/playerlimitremover/bin/playerlimitremover_mm"
+}
