@@ -1,7 +1,4 @@
-#ifdef _INCLUDE_METAMOD_SOURCE_PLR
-#endinput
-#endif
-
+#ifndef _INCLUDE_METAMOD_SOURCE_PLR
 #define _INCLUDE_METAMOD_SOURCE_PLR
 
 #include <ISmmPlugin.h>
@@ -28,3 +25,5 @@ public:
 	void    Hook_GetPlayerLimits( int &minplayer, int &maxplayers, int &defaultmaxplayers );
 
 };
+
+#endif // _INCLUDE_METAMOD_SOURCE_PLR

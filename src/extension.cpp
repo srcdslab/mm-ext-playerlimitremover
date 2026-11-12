@@ -109,7 +109,7 @@ const char *PLR::GetLicense()
 
 const char *PLR::GetVersion()
 {
-	return "1.0.0";
+	return "1.1.0";
 }
 
 const char *PLR::GetDate()

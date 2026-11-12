@@ -1,0 +1,35 @@
+# vim: set sts=2 ts=8 sw=2 tw=99 et ft=python:
+import os
+
+projectName = 'playerlimitremover'
+
+project = builder.LibraryProject(projectName)
+project.sources += [
+  os.path.join(Extension.ext_root, 'src', 'extension.cpp'),
+  os.path.join(Extension.ext_root, 'sm-ext-common', 'src', 'mathstubs.c'),
+]
+
+for sdk_name in Extension.sdks:
+  sdk = Extension.sdks[sdk_name]
+  if sdk['name'] in ['mock']:
+    continue
+
+  for cxx in builder.targets:
+    if not cxx.target.arch in sdk['platforms'][cxx.target.platform]:
+      continue
+
+    # Metamod:Source loads <file>.x64.<so|dll> on x86_64, <file>_i486.so on Linux x86
+    # and <file>.dll on Windows x86.
+    if cxx.target.arch == 'x86_64':
+      suffix = '_mm.x64'
+    elif cxx.target.platform == 'windows':
+      suffix = '_mm'
+    else:
+      suffix = '_mm_i486'
+    binary = Extension.HL2Config(project, builder, cxx, projectName + suffix, sdk)
+
+    if cxx.target.platform == 'linux':
+      binary.compiler.postlink += ['-lpthread', '-lrt']
+
+for task in builder.Add(project):
+  Extension.mm_plugins.append((task, projectName))

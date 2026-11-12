@@ -1,0 +1,19 @@
+name: Build AlliedModders Extension
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    tags:
+      - "*"
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  build-release-extension:
+    uses: srcdslab/ci-workflows/.github/workflows/shared_build_release_am_extension.yml@v1
+    with:
+      sdks: "css"
